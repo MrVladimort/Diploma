@@ -38,6 +38,14 @@ public class Player : MonoBehaviour
         move = GetComponent<Movement>();
     }
 
+    private void Update()
+    {
+        if (Input.GetButton("Slide") && move.coll.onGround)
+        {
+            slide = true;
+        }
+    }
+
     private IEnumerator AttackCo()
     {
         var previousState = currentState;

@@ -4,7 +4,8 @@ using DG.Tweening;
 
 public class Movement : MonoBehaviour
 {
-    private Collision coll;
+    [HideInInspector]
+    public Collision coll;
     private Rigidbody2D rb;
     private AnimationScript anim;
     private Player player;
@@ -70,7 +71,12 @@ public class Movement : MonoBehaviour
 
         if (Input.GetButton("Slide") && coll.onGround)
         {
-            
+            slide = true;
+        }
+        
+        if (Input.GetButtonUp("Slide"))
+        {
+            slide = false;
         }
 
         if (coll.onGround && !isDashing)

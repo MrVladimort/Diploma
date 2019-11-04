@@ -38,7 +38,7 @@ public class AnimationScript : MonoBehaviour
         anim.SetFloat("VerticalVelocity", yVel);
     }
 
-    public void SetTrigger(string trigger)
+    public void SetTrigger(int trigger)
     {
         anim.SetTrigger(trigger);
     }

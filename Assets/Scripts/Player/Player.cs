@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public enum PlayerState {
     Idle,
+    Slide,
     Walk,
     Run,
     Jump,
@@ -40,9 +41,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButton("Slide") && move.coll.onGround)
+        if (Input.GetButtonDown("Attack") && move.coll.onGround && currentState != PlayerState.Attack)
         {
-            slide = true;
+            StartCoroutine(AttackCo());
         }
     }
 

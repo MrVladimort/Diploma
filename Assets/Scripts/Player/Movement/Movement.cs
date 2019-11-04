@@ -24,11 +24,18 @@ public class Movement : MonoBehaviour
     public bool wallSlide;
     public bool slide;
     public bool isDashing;
+    
+    [Space]
+    [Header("Polish")]
+    public ParticleSystem dashParticle;
+    public ParticleSystem jumpParticle;
+    public ParticleSystem wallJumpParticle;
+    public ParticleSystem slideParticle;
 
     [Space] private bool groundTouch;
     private bool hasDashed;
 
-    public int side = -1;
+    public int side = 1;
     
     [Space] [Header("TriggersValue")]
     private static readonly int DashAnimatorMapping = Animator.StringToHash("dash");
@@ -57,20 +64,27 @@ public class Movement : MonoBehaviour
 
         if (coll.onWall && Input.GetButton("WallGrab") && canMove)
         {
-            if (side != coll.wallSide)
-                anim.Flip(side * -1);
+            player.currentState = PlayerState.WallGrab;
+            
+            if(side != coll.wallSide)
+                anim.Flip(side*-1);
+            
             wallGrab = true;
             wallSlide = false;
         }
         
         if (Input.GetButtonUp("WallGrab") || !coll.onWall || !canMove)
         {
+            player.currentState = PlayerState.Jump;
+            
             wallGrab = false;
             wallSlide = false;
         }
 
-        if (Input.GetButton("Slide") && coll.onGround)
+        if (Input.GetButton("Slide") && coll.onGround && player.currentState != PlayerState.Slide)
         {
+            player.currentState = PlayerState.Slide;
+            
             slide = true;
         }
         
@@ -104,6 +118,8 @@ public class Movement : MonoBehaviour
         {
             if (x != 0 && !wallGrab)
             {
+                player.currentState = PlayerState.WallSlide;
+
                 wallSlide = true;
                 WallSlide();
             }
@@ -114,6 +130,8 @@ public class Movement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+            player.currentState = PlayerState.Jump;
+
             anim.SetTrigger(JumpAnimatorMapping);
 
             if (coll.onGround)
@@ -124,6 +142,8 @@ public class Movement : MonoBehaviour
 
         if (Input.GetButtonDown("Dash") && !hasDashed)
         {
+            player.currentState = PlayerState.Dash;
+
             if (xRaw != 0 || yRaw != 0)
                 Dash(xRaw, yRaw);
         }
@@ -139,10 +159,22 @@ public class Movement : MonoBehaviour
             groundTouch = false;
         }
         
+        WallParticle(y);
+
         if (wallGrab || wallSlide || !canMove)
             return;
-        
-        Flip(dir);
+
+        if(x > 0)
+        {
+            side = 1;
+            anim.Flip(side);
+        }
+        if (x < 0)
+        {
+            side = -1;
+            anim.Flip(side);
+        }
+
     }
 
     void GroundTouch()
@@ -151,6 +183,8 @@ public class Movement : MonoBehaviour
         isDashing = false;
 
         side = anim.sr.flipX ? -1 : 1;
+
+        jumpParticle.Play();
     }
 
     private void Dash(float x, float y)
@@ -176,6 +210,7 @@ public class Movement : MonoBehaviour
         StartCoroutine(GroundDash());
         DOVirtual.Float(14, 0, .8f, RigidbodyDrag);
 
+        dashParticle.Play();
         rb.gravityScale = 0;
         GetComponent<BetterJumping>().enabled = false;
         wallJumped = true;
@@ -183,6 +218,7 @@ public class Movement : MonoBehaviour
 
         yield return new WaitForSeconds(.3f);
 
+        dashParticle.Stop();
         rb.gravityScale = 3;
         GetComponent<BetterJumping>().enabled = true;
         wallJumped = false;
@@ -216,14 +252,17 @@ public class Movement : MonoBehaviour
     
     private void WallSlide()
     {
-        if (coll.wallSide != side)
+        if(coll.wallSide != side)
             anim.Flip(side * -1);
 
         if (!canMove)
             return;
 
-        bool pushingWall = rb.velocity.x > 0 && coll.onRightWall || rb.velocity.x < 0 && coll.onLeftWall;
-
+        bool pushingWall = false;
+        if((rb.velocity.x > 0 && coll.onRightWall) || (rb.velocity.x < 0 && coll.onLeftWall))
+        {
+            pushingWall = true;
+        }
         float push = pushingWall ? 0 : rb.velocity.x;
 
         rb.velocity = new Vector2(push, -slideSpeed);
@@ -250,8 +289,13 @@ public class Movement : MonoBehaviour
 
     private void Jump(Vector2 dir, bool wall)
     {
+        slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
+        ParticleSystem particle = wall ? wallJumpParticle : jumpParticle;
+
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.velocity += dir * jumpForce;
+
+        particle.Play();
     }
 
     IEnumerator DisableMovement(float time)
@@ -266,17 +310,24 @@ public class Movement : MonoBehaviour
         rb.drag = x;
     }
     
-    private void Flip(Vector2 move)
+    void WallParticle(float vertical)
     {
-        if (move.x < -0.01f && side == -1) FlipGameObject();
-        else if (move.x > 0.01f && side == 1) FlipGameObject();
+        var main = slideParticle.main;
+
+        if (wallSlide || (wallGrab && vertical < 0))
+        {
+            slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
+            main.startColor = Color.white;
+        }
+        else
+        {
+            main.startColor = Color.clear;
+        }
     }
 
-    private void FlipGameObject()
+    int ParticleSide()
     {
-        side = side * -1;
-        Vector3 mirrorScale = gameObject.transform.localScale;
-        mirrorScale.x *= -1;
-        gameObject.transform.localScale = mirrorScale;
+        int particleSide = coll.onRightWall ? 1 : -1;
+        return particleSide;
     }
 }

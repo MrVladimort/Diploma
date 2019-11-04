@@ -55,7 +55,7 @@ public class AnimationScript : MonoBehaviour
     {
         anim.SetTrigger(trigger);
     }
-
+    
     public void Flip(int side)
     {
 
@@ -70,7 +70,7 @@ public class AnimationScript : MonoBehaviour
             }
         }
 
-        bool state = side != 1;
+        bool state = (side == 1) ? false : true;
         sr.flipX = state;
     }
 }

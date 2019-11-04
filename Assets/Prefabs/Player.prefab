@@ -19309,7 +19309,7 @@ Transform:
   m_GameObject: {fileID: 8858816793402608374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 8858816794694849181}
   - {fileID: 7968112019479669466}
@@ -19433,7 +19433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ae45b05dde17946b6344437e529767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 1
+  currentState: 0
   rb: {fileID: 0}
 --- !u!114 &2521927682957070982
 MonoBehaviour:
@@ -19502,9 +19502,9 @@ MonoBehaviour:
   onLeftWall: 0
   wallSide: 0
   collisionRadius: 0.1
-  bottomOffset: {x: 0, y: -1.55}
-  rightOffset: {x: 0.55, y: 0}
-  leftOffset: {x: -0.55, y: 0}
+  bottomOffset: {x: 0, y: -1.5}
+  rightOffset: {x: 0.4, y: 0}
+  leftOffset: {x: -0.4, y: 0}
 --- !u!114 &1207625691353754147
 MonoBehaviour:
   m_ObjectHideFlags: 0

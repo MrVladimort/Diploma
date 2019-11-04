@@ -50,9 +50,11 @@ public class Player : MonoBehaviour
     private IEnumerator AttackCo()
     {
         var previousState = currentState;
-        anim.SetTrigger(AttackAnimatorMapping);
+        move.canMove = false;
         currentState = PlayerState.Attack;
-        yield return new WaitForSeconds(0.8f);
+        anim.SetTrigger(AttackAnimatorMapping);
+        yield return new WaitForSeconds(1f);
+        move.canMove = true;
         currentState = previousState;
     }
     

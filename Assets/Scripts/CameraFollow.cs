@@ -1,41 +1,31 @@
-﻿using UnityEngine;
-using UnityEngine.Serialization;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [FormerlySerializedAs("Speed")] public float speed = 15f;
-    [FormerlySerializedAs("InterpVelocity")] public float interpVelocity;
-    [FormerlySerializedAs("Target")] public GameObject target;
-    [FormerlySerializedAs("Offset")] public Vector3 offset;
-    
-    Vector3 _targetPos;
+    public Transform target;
 
-    // Use this for initialization
+    public float smoothing = 0.1f;
+
+    public float offset = 0.5f;
+
+    public Vector2 maxPosition;
+
+    public Vector2 minPosition;
+    // Start is called before the first frame update
     void Start()
     {
-        _targetPos = transform.position;
+        
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if (target)
+        if (transform.position != target.position)
         {
-            var cameraPosition = transform.position;
-            var playerPosition = target.transform.position;
-            
-            Vector3 posNoZ = cameraPosition;
-            posNoZ.z = playerPosition.z;
-
-            Vector3 targetDirection = playerPosition - posNoZ;
-
-            interpVelocity = targetDirection.magnitude * speed;
-
-            _targetPos = cameraPosition + Time.deltaTime * interpVelocity * targetDirection.normalized;
-
-            cameraPosition = Vector3.Lerp(cameraPosition, _targetPos + offset, 0.25f);
-            
-            transform.position = cameraPosition;
+            Vector3 targetPosition = new Vector3(target.position.x, target.position.y + offset, transform.position.z);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing);
         }
     }
 }

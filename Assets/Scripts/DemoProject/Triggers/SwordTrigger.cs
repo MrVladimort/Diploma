@@ -8,7 +8,7 @@ public class SwordTrigger : MonoBehaviour
     {
         _gameMaster = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
 
-        if (_gameMaster.haveSword) Destroy(gameObject);
+//        if (_gameMaster.haveSword) Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

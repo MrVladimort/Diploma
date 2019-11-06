@@ -29,13 +29,13 @@ public class DemoPlayer : LiveThing
     {
         _haveSword = true;
         Animator.runtimeAnimatorController = swordAnimatorOverrideController;
-        GameMaster.haveSword = _haveSword;
+//        GameMaster.haveSword = _haveSword;
     }
 
     private void CheckGameMasterOptions()
     {
-        transform.position = GameMaster.GetCheckPoint();
-        if (GameMaster.haveSword) TakeSword();
+//        transform.position = GameMaster.GetCheckPoint();
+//        if (GameMaster.haveSword) TakeSword();
     }
 
     protected override void ComputeVelocity()

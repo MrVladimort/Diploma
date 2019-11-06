@@ -13,7 +13,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            _gameMaster.SetCheckPoint(transform.position);
+//            _gameMaster.SetCheckPoint(transform.position);
         }
     }
 }

@@ -6,6 +6,11 @@ TagManager:
   tags:
   - GM
   - PlayerSword
+  - Enemy
+  - Box
+  - Projectile
+  - Ground
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -17,13 +22,13 @@ TagManager:
   - 
   - Background
   - Middground
-  - Platforms
-  - Player
+  - Obstacles
   - Collectables
+  - Player
+  - NPC
   - Enemy
   - Foreground
-  - Traps
-  - PostProcessing
+  - 
   - 
   - 
   - 
@@ -49,7 +54,7 @@ TagManager:
   - name: Midground
     uniqueID: 1833040413
     locked: 0
-  - name: Platforms
+  - name: Obstacles
     uniqueID: 3891185265
     locked: 0
   - name: Player
@@ -58,15 +63,18 @@ TagManager:
   - name: Collectables
     uniqueID: 765944241
     locked: 0
-  - name: Enemy
+  - name: NPC
     uniqueID: 2562231557
     locked: 0
-  - name: Foreground
+  - name: Enemy
     uniqueID: 1424886475
     locked: 0
   - name: Traps
     uniqueID: 2952965995
     locked: 0
-  - name: PostProcessing
+  - name: Foreground
     uniqueID: 3756735137
+    locked: 0
+  - name: PostProcessing
+    uniqueID: 2534873901
     locked: 0

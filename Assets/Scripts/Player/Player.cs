@@ -43,18 +43,22 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Attack") && move.coll.onGround && currentState != PlayerState.Attack)
         {
-            StartCoroutine(AttackCo());
+            Attack();
         }
     }
 
+    private void Attack()
+    {
+        StartCoroutine(move.DisableMovement(1f));
+        StartCoroutine(AttackCo());
+    }
+    
     private IEnumerator AttackCo()
     {
         var previousState = currentState;
-        move.canMove = false;
         currentState = PlayerState.Attack;
         anim.SetTrigger(AttackAnimatorMapping);
         yield return new WaitForSeconds(1f);
-        move.canMove = true;
         currentState = previousState;
     }
     
@@ -67,9 +71,10 @@ public class Player : MonoBehaviour
     {
         if (myRigidBody != null && currentState == PlayerState.Hurt)
         {
+            var previousState = currentState;
             yield return new WaitForSeconds(knockTime);
             myRigidBody.velocity = Vector2.zero;
-            currentState = PlayerState.Idle;
+            currentState = previousState;
         }
     }
 }

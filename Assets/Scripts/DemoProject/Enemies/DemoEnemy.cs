@@ -21,7 +21,7 @@ namespace Enemies
         {
             base.Start();
 
-            Player = GameMaster.GetPlayer();
+//            Player = GameMaster.GetPlayer();
         }
 
         protected override void ComputeVelocity()

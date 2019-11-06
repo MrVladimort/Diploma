@@ -19,7 +19,7 @@ public class SoulTrigger : MonoBehaviour
         if (other.CompareTag("Player") && !_isPickedUp)
         {
             _isPickedUp = true;
-            _gameMaster.AddSoulPoints(Points);
+//            _gameMaster.AddSoulPoints(Points);
      
             Destroy(gameObject);
         }

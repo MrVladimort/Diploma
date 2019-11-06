@@ -4,30 +4,25 @@ using DG.Tweening;
 
 public class Movement : MonoBehaviour
 {
-    [HideInInspector]
-    public Collision coll;
+    [HideInInspector] public Collision coll;
     private Rigidbody2D rb;
     private AnimationScript anim;
     private Player player;
 
-    [Space] [Header("Stats")] 
-    public float speed = 10;
+    [Space] [Header("Stats")] public float speed = 10;
     public float jumpForce = 50;
     public float slideSpeed = 5;
     public float wallJumpLerp = 10;
     public float dashSpeed = 20;
 
-    [Space] [Header("Booleans")] 
-    public bool canMove;
+    [Space] [Header("Booleans")] public bool canMove;
     public bool wallGrab;
     public bool wallJumped;
     public bool wallSlide;
     public bool slide;
     public bool isDashing;
-    
-    [Space]
-    [Header("Polish")]
-    public ParticleSystem dashParticle;
+
+    [Space] [Header("Polish")] public ParticleSystem dashParticle;
     public ParticleSystem jumpParticle;
     public ParticleSystem wallJumpParticle;
     public ParticleSystem slideParticle;
@@ -36,9 +31,8 @@ public class Movement : MonoBehaviour
     private bool hasDashed;
 
     public int side = 1;
-    
-    [Space] [Header("TriggersValue")]
-    private static readonly int DashAnimatorMapping = Animator.StringToHash("dash");
+
+    [Space] [Header("TriggersValue")] private static readonly int DashAnimatorMapping = Animator.StringToHash("dash");
     private static readonly int JumpAnimatorMapping = Animator.StringToHash("jump");
 
     // Start is called before the first frame update
@@ -59,24 +53,29 @@ public class Movement : MonoBehaviour
         float yRaw = Input.GetAxisRaw("Vertical");
         Vector2 dir = new Vector2(x, y);
 
+        if (dir.Equals(Vector2.zero))
+        {
+            player.currentState = PlayerState.Idle;
+        }
+
         Walk(dir);
         anim.SetHorizontalMovement(Mathf.Abs(x), y, rb.velocity.y);
 
         if (coll.onWall && Input.GetButton("WallGrab") && canMove)
         {
             player.currentState = PlayerState.WallGrab;
-            
-            if(side != coll.wallSide)
-                anim.Flip(side*-1);
-            
+
+            if (side != coll.wallSide)
+                anim.Flip(side * -1);
+
             wallGrab = true;
             wallSlide = false;
         }
-        
+
         if (Input.GetButtonUp("WallGrab") || !coll.onWall || !canMove)
         {
             player.currentState = PlayerState.Jump;
-            
+
             wallGrab = false;
             wallSlide = false;
         }
@@ -84,10 +83,10 @@ public class Movement : MonoBehaviour
         if (Input.GetButton("Slide") && coll.onGround && player.currentState != PlayerState.Slide)
         {
             player.currentState = PlayerState.Slide;
-            
+
             slide = true;
         }
-        
+
         if (Input.GetButtonUp("Slide"))
         {
             slide = false;
@@ -158,23 +157,23 @@ public class Movement : MonoBehaviour
         {
             groundTouch = false;
         }
-        
+
         WallParticle(y);
 
         if (wallGrab || wallSlide || !canMove)
             return;
 
-        if(x > 0)
+        if (x > 0)
         {
             side = 1;
             anim.Flip(side);
         }
+
         if (x < 0)
         {
             side = -1;
             anim.Flip(side);
         }
-
     }
 
     void GroundTouch()
@@ -249,20 +248,21 @@ public class Movement : MonoBehaviour
 
         wallJumped = true;
     }
-    
+
     private void WallSlide()
     {
-        if(coll.wallSide != side)
+        if (coll.wallSide != side)
             anim.Flip(side * -1);
 
         if (!canMove)
             return;
 
         bool pushingWall = false;
-        if((rb.velocity.x > 0 && coll.onRightWall) || (rb.velocity.x < 0 && coll.onLeftWall))
+        if ((rb.velocity.x > 0 && coll.onRightWall) || (rb.velocity.x < 0 && coll.onLeftWall))
         {
             pushingWall = true;
         }
+
         float push = pushingWall ? 0 : rb.velocity.x;
 
         rb.velocity = new Vector2(push, -slideSpeed);
@@ -278,7 +278,7 @@ public class Movement : MonoBehaviour
 
         if (!wallJumped)
         {
-            rb.velocity = new Vector2(dir.x * speed, rb.velocity.y);
+            rb.velocity = new Vector2(dir.x * (slide ? slideSpeed : speed), rb.velocity.y);
         }
         else
         {
@@ -298,7 +298,7 @@ public class Movement : MonoBehaviour
         particle.Play();
     }
 
-    IEnumerator DisableMovement(float time)
+    public IEnumerator DisableMovement(float time)
     {
         canMove = false;
         yield return new WaitForSeconds(time);
@@ -309,7 +309,7 @@ public class Movement : MonoBehaviour
     {
         rb.drag = x;
     }
-    
+
     void WallParticle(float vertical)
     {
         var main = slideParticle.main;

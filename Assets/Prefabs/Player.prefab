@@ -19463,7 +19463,7 @@ MonoBehaviour:
   jumpParticle: {fileID: 1977703351503299821}
   wallJumpParticle: {fileID: 323471797208935733}
   slideParticle: {fileID: 391708034291579975}
-  side: 1
+  side: -1
 --- !u!114 &8858816793402608365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19492,7 +19492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 1024
   platformsLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -19500,11 +19500,13 @@ MonoBehaviour:
   onWall: 0
   onRightWall: 0
   onLeftWall: 0
+  roofCollision: 0
   wallSide: 0
   collisionRadius: 0.1
   bottomOffset: {x: 0, y: -1.5}
   rightOffset: {x: 0.4, y: 0}
   leftOffset: {x: -0.4, y: 0}
+  upperOffset: {x: 0, y: 1.5}
 --- !u!114 &1207625691353754147
 MonoBehaviour:
   m_ObjectHideFlags: 0

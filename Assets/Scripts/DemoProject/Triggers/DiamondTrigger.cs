@@ -19,7 +19,7 @@ public class DiamondTrigger : MonoBehaviour
         if (other.CompareTag("Player") && !_isPickedUp)
         {
             _isPickedUp = true;
-            _gameMaster.AddDiamondPoints(Points);
+//            _gameMaster.AddDiamondPoints(Points);
             Destroy(gameObject);
         }
     }

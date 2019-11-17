@@ -28,7 +28,7 @@ public class Enemy : MoveableObject
     private static readonly int AttackAnimation = Animator.StringToHash("attack");
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         gameMaster = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
         animator = GetComponent<Animator>();
@@ -36,12 +36,15 @@ public class Enemy : MoveableObject
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
+        Track();
     }
 
     private void Track()
     {
+        DrawLines();
+
         var position = transform.position;
         var playerPosition = player.transform.position;
 
@@ -75,20 +78,21 @@ public class Enemy : MoveableObject
 
     private void DrawLines()
     {
+        var forward = trackPoint.forward;
         var trackPosition = trackPoint.position;
 
-        var line =trackPosition + direction * maxDistanceOfPlayerDetection;
+        var line = trackPosition + direction * maxDistanceOfPlayerDetection;
         var rotatedLine = Quaternion.AngleAxis(0, transform.up) * line;
         Debug.DrawLine(trackPosition, rotatedLine, Color.red);
 
+        var lineTop =
+            trackPosition + maxDistanceOfPlayerDetection * direction; // 25 - length offset, don't work correctly
+        var rotatedLineTop = Quaternion.AngleAxis(maxAngleOfPlayerDetection * -1, forward) * lineTop;
+        Debug.DrawLine(trackPosition, rotatedLineTop, Color.blue);
 
-//        var lineTop = transform.position + Direction * -1 * maxDistance; // 25 - length offset, don't work correctly
-//        var rotatedLineTop = Quaternion.AngleAxis(maxAngle * drawOffset * -1, transform.forward) * lineTop;
-//        Debug.DrawLine(transform.position, rotatedLineTop, Color.blue);
-//
-//        var lineBottom = transform.position + Direction * -1 * maxDistance;
-//        var rotatedLineBottom = Quaternion.AngleAxis(maxAngle * drawOffset, transform.forward) * lineBottom;
-//        Debug.DrawLine(transform.position, rotatedLineBottom, Color.blue);
+        var lineBottom = trackPosition + maxDistanceOfPlayerDetection * direction;
+        var rotatedLineBottom = Quaternion.AngleAxis(maxAngleOfPlayerDetection, forward) * lineBottom;
+        Debug.DrawLine(trackPosition, rotatedLineBottom, Color.blue);
     }
 
     public void Attack()

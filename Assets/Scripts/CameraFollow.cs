@@ -24,8 +24,14 @@ public class CameraFollow : MonoBehaviour
     {
         if (transform.position != target.position)
         {
-            Vector3 targetPosition = new Vector3(target.position.x, target.position.y + offset, transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing);
+            var position = transform.position;
+            var targetPosition = new Vector3(target.position.x, target.position.y + offset, position.z);
+
+            targetPosition.x = Mathf.Clamp(targetPosition.x, minPosition.x, maxPosition.x);
+            targetPosition.y = Mathf.Clamp(targetPosition.y, minPosition.y, maxPosition.y);
+            
+            position = Vector3.Lerp(position, targetPosition, smoothing);
+            transform.position = position;
         }
     }
 }

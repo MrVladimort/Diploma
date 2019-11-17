@@ -22,12 +22,12 @@ public class GameMaster : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-    
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -38,15 +38,14 @@ public class GameMaster : MonoBehaviour
     {
         return player;
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

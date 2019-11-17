@@ -35,7 +35,10 @@ public class PatrollingEnemyAI : MonoBehaviour
         if (!enemy.seePlayer)
         {
             Patrolling();
-        } 
+        } else if(enemy.seePlayer)
+        {
+            ChasePlayer();
+        }
     }
 
     void Patrolling()
@@ -64,9 +67,12 @@ public class PatrollingEnemyAI : MonoBehaviour
             enemy.currentState = EnemyState.Patrolling;
             pathfindingAgent.SearchPath();
         }
-        else
-        {
-            enemy.currentState = EnemyState.Idle;
-        }
+    }
+
+    void ChasePlayer()
+    {
+        pathfindingAgent.destination = enemy.player.rb.position;
+        enemy.currentState = EnemyState.Chasing;
+        pathfindingAgent.SearchPath();
     }
 }

@@ -7,10 +7,9 @@ TagManager:
   - GM
   - PlayerSword
   - Enemy
-  - Box
-  - Projectile
-  - Ground
   - Platform
+  - LevelChanger
+  - UI
   layers:
   - Default
   - TransparentFX
@@ -23,12 +22,12 @@ TagManager:
   - Background
   - Middground
   - Obstacles
-  - Collectables
+  - NoWallSlide
+  - Collactables
   - Player
   - NPC
   - Enemy
   - Foreground
-  - 
   - 
   - 
   - 

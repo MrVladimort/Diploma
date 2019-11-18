@@ -97,10 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dad1f2bb226078a4ea27947fc6e6ff40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  smoothing: 0.1
-  maxPosition: {x: 0, y: 0}
-  minPosition: {x: 0, y: 0}
+  smoothing: 0.05
+  offset: 3
+  maxPosition: {x: 47, y: 11.5}
+  minPosition: {x: -34.5, y: -11}
 --- !u!114 &2641739986589501675
 MonoBehaviour:
   m_ObjectHideFlags: 0

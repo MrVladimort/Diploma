@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;
 
     public float smoothing = 0.1f;
 
@@ -13,10 +12,15 @@ public class CameraFollow : MonoBehaviour
     public Vector2 maxPosition;
 
     public Vector2 minPosition;
+    
+    private Transform target;
+    private GameMaster gameMaster;
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameMaster = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
+        target = gameMaster.GetPlayer().gameObject.transform;
+        transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
     }
 
     // Update is called once per frame

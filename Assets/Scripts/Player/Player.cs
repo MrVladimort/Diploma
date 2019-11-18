@@ -21,6 +21,7 @@ public enum PlayerState {
 public class Player : MonoBehaviour
 {
     public PlayerState currentState;
+    public VectorValue spawnPosition;
     
     [HideInInspector] public Rigidbody2D rb;
     private AnimationScript anim;
@@ -37,6 +38,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<AnimationScript>();
         move = GetComponent<Movement>();
+
+        transform.position = spawnPosition.initialValue;
     }
 
     private void Update()

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Pathfinding;
 using UnityEngine;
 
 public enum EnemyState
@@ -15,14 +16,16 @@ public class Enemy : MoveableObject
 {
     public string enemyName = "Enemy";
     public EnemyState currentState;
-    public float maxAngleOfPlayerDetection = 15f;
-    public float maxDistanceOfPlayerDetection = 60f;
+    public float maxAngleOfPlayerDetection = 10f;
+    public float maxDistanceOfPlayerDetection = 15f;
     public Transform trackPoint;
 
     [HideInInspector] public Player player;
     [HideInInspector] public bool seePlayer;
+    [HideInInspector] public float distanceToPlayer;
 
     private GameMaster gameMaster;
+    private IAstarAI pathfindingAgent;
     private Animator animator;
 
     private static readonly int AttackAnimation = Animator.StringToHash("attack");
@@ -32,12 +35,14 @@ public class Enemy : MoveableObject
     {
         gameMaster = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
         animator = GetComponent<Animator>();
+        pathfindingAgent = GetComponent<IAstarAI>();
         player = gameMaster.GetPlayer();
     }
 
     // Update is called once per frame
     protected void Update()
     {
+        Flip(pathfindingAgent.desiredVelocity);
         Track();
     }
 
@@ -50,10 +55,10 @@ public class Enemy : MoveableObject
 
         var directionToTarget = position - playerPosition; // distance
         var angle = Vector3.Angle(direction * -1, directionToTarget); // angle between player and tower
-        var distance = directionToTarget.magnitude; // length of vector
+        distanceToPlayer = directionToTarget.magnitude; // length of vector
 
         // if player is visible
-        if (Mathf.Abs(angle) < maxAngleOfPlayerDetection && distance < maxDistanceOfPlayerDetection)
+        if (Mathf.Abs(angle) < maxAngleOfPlayerDetection && distanceToPlayer < maxDistanceOfPlayerDetection)
         {
             var trackPosition = trackPoint.position;
 
@@ -64,8 +69,7 @@ public class Enemy : MoveableObject
             RaycastHit2D playerHit = Physics2D.Raycast(trackPosition,
                 (playerPosition - position).normalized,
                 maxDistanceOfPlayerDetection);
-
-
+            
             if (playerHit == true)
                 if (playerHit.collider.CompareTag("Player"))
                     seePlayer = true;

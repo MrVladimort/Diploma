@@ -110,9 +110,9 @@ GameObject:
   - component: {fileID: 4617176388008180688}
   - component: {fileID: 4617176388008180689}
   - component: {fileID: 4617176388008180703}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LevelChanger
-  m_TagString: Untagged
+  m_TagString: LevelChanger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,7 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4600f53db96164aae796c698f574bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
 --- !u!1 &4617176388584355151
 GameObject:
   m_ObjectHideFlags: 0

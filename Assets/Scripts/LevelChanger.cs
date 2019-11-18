@@ -1,28 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelChanger : MonoBehaviour
 {
-    public Animator animator;
+    private Animator animator;
 
-    private int levelToLoad;
+    private string sceneNameToLoad;
     private static readonly int FadeOut = Animator.StringToHash("FadeOut");
 
-    public void FadeToNextLevel()
+    private void Start()
     {
-        FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        animator = GetComponent<Animator>();
     }
 
-    public void FadeToLevel(int levelIndex)
+    public void FadeToLevel(string sceneToLoad)
     {
-        levelToLoad = levelIndex;
+        sceneNameToLoad = sceneToLoad;
         animator.SetTrigger(FadeOut);
     }
-
+    
     public void OnFadeComplete()
     {
-        SceneManager.LoadScene(levelToLoad);
+        SceneManager.LoadScene(sceneNameToLoad);
     }
 }

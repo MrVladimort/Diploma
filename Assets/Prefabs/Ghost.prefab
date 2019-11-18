@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3756740832340714704}
   - component: {fileID: 3756740832340714705}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: G1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3756740833676863306}
   - component: {fileID: 3756740833676863301}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,9 +127,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ghostsParent: {fileID: 3756740833676863306}
-  trailColor: {r: 1, g: 0.3372549, b: 0.42352945, a: 0}
-  fadeColor: {r: 1, g: 0.3372549, b: 0.42352945, a: 0}
-  ghostInterval: 0.05
+  trailColor: {r: 1, g: 0.3647059, b: 0.6039216, a: 1}
+  fadeColor: {r: 1, g: 0.3647059, b: 0.6039216, a: 0}
+  ghostInterval: 0.1
   fadeTime: 0.5
 --- !u!1 &3756740833957385212
 GameObject:
@@ -141,7 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3756740833957385213}
   - component: {fileID: 3756740833957385186}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: G3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3756740834088988296}
   - component: {fileID: 3756740834088988297}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: G2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

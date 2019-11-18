@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MoveableObject : MonoBehaviour
 {
-    protected Vector3 direction = new Vector3(-1, 0, 0);
+    protected Vector3 direction = new Vector3(1, 0, 0);
     private bool isFacingRight;
 
     protected void Flip(Vector2 move)

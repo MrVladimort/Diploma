@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6232971602656898951}
   - component: {fileID: 323471797208935733}
   - component: {fileID: 8064948995234197609}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Jump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4822,7 +4822,7 @@ GameObject:
   - component: {fileID: 8643726906788268540}
   - component: {fileID: 1977703351503299821}
   - component: {fileID: 1448172026023870417}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: JumpParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9633,7 +9633,7 @@ GameObject:
   - component: {fileID: 7294035164816279994}
   - component: {fileID: 391708034291579975}
   - component: {fileID: 6318272557939081757}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14444,7 +14444,7 @@ GameObject:
   - component: {fileID: 1374632494950347800}
   - component: {fileID: 3551573376674202763}
   - component: {fileID: 3245928977931896145}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: DashParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19196,7 +19196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7968112019479669466}
   - component: {fileID: 4477708396878129925}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Sword
   m_TagString: PlayerSword
   m_Icon: {fileID: 0}
@@ -19252,7 +19252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2041693686872518413}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: SlideParticleParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19293,7 +19293,7 @@ GameObject:
   - component: {fileID: 8858816793402608365}
   - component: {fileID: 8858816793402608364}
   - component: {fileID: 1207625691353754147}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -19331,7 +19331,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -19434,6 +19434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  spawnPosition: {fileID: 11400000, guid: a847a5ad8ddea4a4b8f09ed2038f2dfd, type: 2}
   rb: {fileID: 0}
 --- !u!114 &2521927682957070982
 MonoBehaviour:
@@ -19529,7 +19530,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8858816794694849181}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

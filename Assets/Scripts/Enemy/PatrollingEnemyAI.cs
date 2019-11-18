@@ -18,7 +18,9 @@ public class PatrollingEnemyAI : MonoBehaviour
     protected IAstarAI pathfindingAgent;
     protected Vector3 spawnPoint;
     protected Enemy enemy;
-    
+
+    private bool playerSeen;
+
     // Start is called before the first frame update
     protected void Start()
     {
@@ -32,12 +34,15 @@ public class PatrollingEnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!enemy.seePlayer)
+        if (enemy.seePlayer || playerSeen && chasingDistance >= enemy.distanceToPlayer)
         {
-            Patrolling();
-        } else if(enemy.seePlayer)
-        {
+            playerSeen = true;
             ChasePlayer();
+        }
+        else
+        {
+            playerSeen = false;
+            Patrolling();
         }
     }
 
